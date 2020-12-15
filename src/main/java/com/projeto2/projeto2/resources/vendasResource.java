@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,29 +18,40 @@ import org.springframework.web.bind.annotation.RestController;
 import com.projeto2.projeto2.models.modelo_Vendas;
 import com.projeto2.projeto2.repository.vendasRepository;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping(value="sistema")
+@RequestMapping(value="/sistema")
+@Api(value="API de Vendas - Projeto2")
+@CrossOrigin(origins="*")
 public class vendasResource {
 
 	@Autowired
 	vendasRepository vendasrepository;
 	
 	@GetMapping("/vendas")
-	public List<modelo_Vendas> listaVendas(){
-		return vendasrepository.findAll();
+	@ApiOperation(value="Retorna lista de vendas")
+	public ResponseEntity<List<modelo_Vendas>> listaVendas(){
+		//return vendasrepository.findAll();
+		return ResponseEntity.ok(vendasrepository.findAll());
 		
 	}
 	
 	@GetMapping("/vendas/{id}")
-	public modelo_Vendas listaVenda(@PathVariable(value="id") long id){
-		return vendasrepository.findById(id);
+	@ApiOperation(value="Retorna uma venda através do ID")
+	public ResponseEntity<modelo_Vendas> listaVenda(@PathVariable(value="id") long id){
+		//return vendasrepository.findById(id);
+		modelo_Vendas vendas = vendasrepository.findById(id);
+		return ResponseEntity.ok(vendas);
 		
 	}
 	@Transactional
 	@CacheEvict(value = "/vendas", allEntries = true)
 	@PostMapping("/vendas")
-	public modelo_Vendas modelo_vendas (@RequestBody modelo_Vendas modelo_vendas){
-		return vendasrepository.save(modelo_vendas);
+	@ApiOperation(value="Grava uma venda.")
+	public ResponseEntity<modelo_Vendas> modelo_vendas (@RequestBody modelo_Vendas modelo_vendas){
+		return ResponseEntity.ok(vendasrepository.save(modelo_vendas));
 		
 		/*
 		Exemplo de Json para POST
