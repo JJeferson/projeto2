@@ -83,7 +83,7 @@ public class vendasResource {
 	public ResponseEntity<List<modelo_Vendas>> listaVendaDesc(@RequestParam(value="Descricao", defaultValue = "") String Descricao){
 	
 	
-    List<modelo_Vendas> Vendas = vendasrepository. findAllByDescricao(Descricao);	
+    List<modelo_Vendas> Vendas = vendasrepository.findAllByDescricao(Descricao);	
 		
 	return ResponseEntity.ok(Vendas);
 		 
