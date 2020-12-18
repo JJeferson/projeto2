@@ -15,6 +15,6 @@ public interface vendasRepository extends JpaRepository<modelo_Vendas,Long> {
 	
 	modelo_Vendas findById(long id);
 	
-	modelo_Vendas findByDescricao(String Descricao);
+	List<modelo_Vendas> findAllByDescricao(String Descricao);
 	
 }
