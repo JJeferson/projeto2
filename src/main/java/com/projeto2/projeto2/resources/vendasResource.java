@@ -80,11 +80,11 @@ public class vendasResource {
 	//@GetMapping("/relvendasdesc")
 	@PutMapping("/vendas")
 	@ApiOperation(value="Retorna vendas baseado na Descrição")
-	public ResponseEntity<Page<modelo_Vendas>> listaVendaDesc(@RequestParam(value="Descricao", defaultValue = "") String Descricao){
+	public ResponseEntity<List<modelo_Vendas>> listaVendaDesc(@RequestParam(value="Descricao", defaultValue = "") String Descricao){
 		
-	PageRequest pageRequest = PageRequest.of(1,1, Direction.valueOf("ASC"));
+	//PageRequest pageRequest = PageRequest.of(1,1, Direction.valueOf("ASC"));
 	
-    Page<modelo_Vendas> Vendas = vendasrepository.findByDescricao(Descricao,pageRequest);	
+    List<modelo_Vendas> Vendas = vendasrepository.findByDescricaoImpl(Descricao);	
 		
 	return ResponseEntity.ok(Vendas);
 		 
