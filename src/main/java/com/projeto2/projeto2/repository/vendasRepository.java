@@ -15,8 +15,7 @@ public interface vendasRepository extends JpaRepository<modelo_Vendas,Long> {
 	
 	modelo_Vendas findById(long id);
 	
-	@Query("select v from TB_Vendas v where v.descricao like %?1%")
-	List<modelo_Vendas> findByDescricaoImpl(String Descricao);
-	//Page<modelo_Vendas> findByDescricao(String Descricao,Pageable pageRequest);
+	@Query("SELECT id_Venda,valorUnitario,QTDE,valorTotal,Descricao FROM TB_Vendas WHERE descricao LIKE %?1%")
+	public List<modelo_Vendas> findByDescricao(String Descricao);
 	
 }

@@ -84,7 +84,7 @@ public class vendasResource {
 		
 	//PageRequest pageRequest = PageRequest.of(1,1, Direction.valueOf("ASC"));
 	
-    List<modelo_Vendas> Vendas = vendasrepository.findByDescricaoImpl(Descricao);	
+    List<modelo_Vendas> Vendas = vendasrepository.findByDescricao(Descricao);	
 		
 	return ResponseEntity.ok(Vendas);
 		 
